@@ -3,19 +3,24 @@
     /// <summary>
     /// The file header contains the basic properties of the image.
     /// </summary>
-    internal sealed class FileHeader
+    public sealed class FileHeader
     {
         /// <summary>
         /// Gets or sets the signature.
         /// </summary>
         /// <remarks>Signature: always equal to '8BPS'. Do not try to read the file if the signature does not match this value.</remarks>
-        public byte[] Signature { get; set; }
+        public string Signature { get; set; }
 
         /// <summary>
         /// Gets or sets the version.
         /// </summary>
         /// <remarks>Version: always equal to 1. Do not try to read the file if the version does not match this value. (**PSB** version is 2.)</remarks>
         public short Version { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reserved bytes. Must be zero.
+        /// </summary>
+        public byte[] Reserved { get; set; }
 
         /// <summary>
         /// Gets or sets the number of channels in the image, including any alpha channels. Supported range is 1 to 56.
