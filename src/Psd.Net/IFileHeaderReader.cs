@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Psd.Net.Sections;
 
@@ -42,6 +43,48 @@ namespace Psd.Net
             
 
             return colorModeData;
+        }
+    }
+
+    public class ImageResourcesReader
+    {
+        public List<ImageResource> Read(Stream stream)
+        {
+            var list = new List<ImageResource>();
+
+            var reader = new BigEndianBinaryReader(stream);
+            var length = reader.ReadInt32();
+            var startPosition = reader.BaseStream.Position;
+
+            while (reader.BaseStream.Position < startPosition + length)
+            {
+                var imageResource = new ImageResource();
+
+                imageResource.Signature = new string(reader.ReadChars(4));
+                imageResource.Id = (ImageResourceId)reader.ReadInt16();
+
+                //read pascal string
+                var stringLength = reader.ReadByte();
+                if ((stringLength%2) != 0 || stringLength == 0)
+                {
+                    reader.ReadByte();
+                }
+
+                imageResource.Name = new string(reader.ReadChars(stringLength));
+
+                imageResource.DataLength = reader.ReadInt32();
+
+                if ((imageResource.DataLength%2) != 0)
+                {
+                    imageResource.DataLength++;   
+                }
+
+                imageResource.Data = reader.ReadBytes(imageResource.DataLength);
+
+                list.Add(imageResource);
+            }
+
+            return list;
         }
     }
 }
