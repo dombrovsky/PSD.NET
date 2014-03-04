@@ -14,8 +14,8 @@ namespace Psd.Net
         public FileHeader Read(Stream stream)
         {
             var header = new FileHeader();
-            using (var reader = new BigEndianBinaryReader(stream))
-            {
+            var reader = new BigEndianBinaryReader(stream);
+            
                 header.Signature = new string(reader.ReadChars(4));
                 header.Version = reader.ReadInt16();
                 header.Reserved = reader.ReadBytes(6);
@@ -24,11 +24,24 @@ namespace Psd.Net
                 header.PixelWidth = reader.ReadInt32();
                 header.BitsPerChannel = reader.ReadInt16();
                 header.ColorMode = (ColorMode)reader.ReadInt16();
-            }
+            
 
             return header;
         }
+    }
 
-        
+    public class ColorModeDataReader
+    {
+        public ColorModeData Read(Stream stream)
+        {
+            var colorModeData = new ColorModeData();
+            var reader = new BigEndianBinaryReader(stream);
+            
+                colorModeData.DataLength = reader.ReadInt32();
+                colorModeData.ColorData = reader.ReadBytes(colorModeData.DataLength);
+            
+
+            return colorModeData;
+        }
     }
 }

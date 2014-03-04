@@ -41,6 +41,8 @@
     <Compile Include="IFileHeaderReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PsdException.cs" />
+    <Compile Include="PsdFileFormatException.cs" />
+    <Compile Include="Sections\ColorModeData.cs" />
     <Compile Include="Sections\FileHeader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
