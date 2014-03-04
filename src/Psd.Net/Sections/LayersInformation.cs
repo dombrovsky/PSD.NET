@@ -3,7 +3,7 @@
     /// <summary>
     /// Layers information section.
     /// </summary>
-    public sealed class LayersInformationSection : IDataSection
+    public sealed class LayersInformation : IDataSection
     {
         /// <summary>
         /// Gets the offset.

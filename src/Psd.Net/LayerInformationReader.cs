@@ -8,25 +8,47 @@ namespace Psd.Net
     {
         public LayerAndMaskInformationSection Read(Stream stream, FileVersion version)
         {
-            var layerAndMaskInformationSection = new LayerAndMaskInformationSection();
+            var section = new LayerAndMaskInformationSection();
             var reader = new BigEndianBinaryReader(stream);
 
-            layerAndMaskInformationSection.Length = version == FileVersion.Psd ? reader.ReadInt32() : reader.ReadInt64();
-            layerAndMaskInformationSection.Offset = stream.Position;
+            section.Length = version == FileVersion.Psd ? reader.ReadInt32() : reader.ReadInt64();
+            section.Offset = stream.Position;
 
-            layerAndMaskInformationSection.LayersInformation = new LayersInformationSection();
-            layerAndMaskInformationSection.LayersInformation.Length = version == FileVersion.Psd ? reader.ReadInt32() : reader.ReadInt64();
-            layerAndMaskInformationSection.LayersInformation.LayerCount = reader.ReadInt16();
-            if (layerAndMaskInformationSection.LayersInformation.LayerCount < 0)
+            // Layers information.
+            section.LayersInformation = new LayersInformation();
+            section.LayersInformation.Length = version == FileVersion.Psd ? reader.ReadInt32() : reader.ReadInt64();
+            section.LayersInformation.LayerCount = reader.ReadInt16();
+            if (section.LayersInformation.LayerCount < 0)
             {
-                layerAndMaskInformationSection.LayersInformation.LayerCount *= -1;
-                layerAndMaskInformationSection.LayersInformation.IsFirstAlphaChannel = true;
+                section.LayersInformation.LayerCount *= -1;
+                section.LayersInformation.IsFirstAlphaChannel = true;
             }
 
-            layerAndMaskInformationSection.LayersInformation.Offset = stream.Position;
-            stream.Position = layerAndMaskInformationSection.Offset + layerAndMaskInformationSection.Length;
+            section.LayersInformation.Offset = stream.Position;
+            section.LayersInformation.Length -= 2; // subtract layer count bytes.
 
-            return layerAndMaskInformationSection;
+            // GlobalLayerMaskInformation
+            stream.Position = section.LayersInformation.Offset + section.LayersInformation.Length;
+            var globalLayerMaskInformationLength = reader.ReadInt32();
+            if (globalLayerMaskInformationLength > 0)
+            {
+                section.GlobalLayerMaskInformation = new GlobalLayerMaskInformation();
+                section.GlobalLayerMaskInformation.Length = globalLayerMaskInformationLength;
+                section.GlobalLayerMaskInformation.OverlayColorSpace = reader.ReadInt16();
+                section.GlobalLayerMaskInformation.ColorComponents = new short[4];
+                for (int i = 0; i < section.GlobalLayerMaskInformation.ColorComponents.Length; i++)
+                {
+                    section.GlobalLayerMaskInformation.ColorComponents[i] = reader.ReadInt16();
+                }
+
+                section.GlobalLayerMaskInformation.Opacity = reader.ReadInt16();
+                section.GlobalLayerMaskInformation.Kind = (GlobalLayerMaskInfoKind)reader.ReadByte();
+                section.GlobalLayerMaskInformation.Offset = stream.Position;
+            }
+
+            stream.Position = section.Offset + section.Length;
+
+            return section;
         }
     }
 }

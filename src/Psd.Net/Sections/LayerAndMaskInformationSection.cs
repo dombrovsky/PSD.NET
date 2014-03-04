@@ -18,6 +18,11 @@
         /// <summary>
         /// Gets or sets the layers information.
         /// </summary>
-        public LayersInformationSection LayersInformation { get; set; }
+        public LayersInformation LayersInformation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the global layer mask information.
+        /// </summary>
+        public GlobalLayerMaskInformation GlobalLayerMaskInformation { get; set; }
     }
 }
