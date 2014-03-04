@@ -3,16 +3,16 @@
     /// <summary>
     /// Color mode data.
     /// </summary>
-    public sealed class ColorModeData
+    public sealed class ColorModeData : IDataSection
     {
+        /// <summary>
+        /// Gets the offset.
+        /// </summary>
+        public long Offset { get; set; }
+
         /// <summary>
         /// Gets or sets the length of the following color data.
         /// </summary>
-        public int DataLength { get; set; }
-
-        /// <summary>
-        /// Gets or sets the color data.
-        /// </summary>
-        public byte[] ColorData { get; set; }
+        public long Length { get; set; }
     }
 }

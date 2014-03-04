@@ -22,14 +22,15 @@ namespace Psd.Net
                 imageResource.Id = (ImageResourceId)reader.ReadInt16();
                 imageResource.Name = reader.ReadPascalString();
 
-                imageResource.DataLength = reader.ReadInt32();
+                imageResource.Length = reader.ReadInt32();
 
-                if ((imageResource.DataLength % 2) != 0)
+                if ((imageResource.Length % 2) != 0)
                 {
-                    imageResource.DataLength++;   
+                    imageResource.Length++;
                 }
 
-                imageResource.Data = reader.ReadBytes(imageResource.DataLength);
+                imageResource.Offset = stream.Position;
+                stream.Position += imageResource.Length;
 
                 list.Add(imageResource);
             }

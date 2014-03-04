@@ -14,7 +14,7 @@ namespace Psd.Net
             var stringLength = binaryReader.ReadByte();
             var resultString = new string(binaryReader.ReadChars(stringLength));
 
-            if ((stringLength % 2) != 0)
+            if ((stringLength % 2) != 0 || stringLength == 0)
             {
                 binaryReader.ReadByte();
             }

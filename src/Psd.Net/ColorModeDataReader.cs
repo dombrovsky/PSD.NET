@@ -10,9 +10,10 @@ namespace Psd.Net
             var colorModeData = new ColorModeData();
             var reader = new BigEndianBinaryReader(stream);
             
-            colorModeData.DataLength = reader.ReadInt32();
-            colorModeData.ColorData = reader.ReadBytes(colorModeData.DataLength);
-            
+            colorModeData.Length = reader.ReadInt32();
+            colorModeData.Offset = stream.Position;
+
+            stream.Position += colorModeData.Length;
 
             return colorModeData;
         }

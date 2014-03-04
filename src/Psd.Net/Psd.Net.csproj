@@ -52,6 +52,7 @@
     <Compile Include="PsdFileFormatException.cs" />
     <Compile Include="Sections\ColorModeData.cs" />
     <Compile Include="Sections\FileHeader.cs" />
+    <Compile Include="Sections\IDataSection.cs" />
     <Compile Include="Sections\ImageResource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
