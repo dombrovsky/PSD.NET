@@ -62,19 +62,11 @@ namespace Psd.Net
 
                 imageResource.Signature = new string(reader.ReadChars(4));
                 imageResource.Id = (ImageResourceId)reader.ReadInt16();
-
-                //read pascal string
-                var stringLength = reader.ReadByte();
-                if ((stringLength%2) != 0 || stringLength == 0)
-                {
-                    reader.ReadByte();
-                }
-
-                imageResource.Name = new string(reader.ReadChars(stringLength));
+                imageResource.Name = reader.ReadPascalString();
 
                 imageResource.DataLength = reader.ReadInt32();
 
-                if ((imageResource.DataLength%2) != 0)
+                if ((imageResource.DataLength % 2) != 0)
                 {
                     imageResource.DataLength++;   
                 }
@@ -95,8 +87,26 @@ namespace Psd.Net
             var reader = new BigEndianBinaryReader(stream);
 
             long length = version == FileVersion.Psd ? reader.ReadInt32() : reader.ReadInt64();
+            var startPosition = stream.Position;
 
-            stream.Position += length;
+            long layersInfoLength = version == FileVersion.Psd ? reader.ReadInt32() : reader.ReadInt64();
+            short layersCount = Math.Abs(reader.ReadInt16());
+
+            stream.Position = startPosition + length;
+        }
+    }
+
+    public class ImageDataReader
+    {
+        public void Read(Stream stream, FileHeader header)
+        {
+            var reader = new BigEndianBinaryReader(stream);
+
+            var compression = (CompressionMethod)reader.ReadInt16();
+
+           
+
+            
         }
     }
 }
