@@ -18,7 +18,7 @@ namespace Psd.Net
             var reader = new BigEndianBinaryReader(stream);
             
                 header.Signature = new string(reader.ReadChars(4));
-                header.Version = reader.ReadInt16();
+                header.Version = (FileVersion)reader.ReadInt16();
                 header.Reserved = reader.ReadBytes(6);
                 header.ChannelCount = reader.ReadInt16();
                 header.PixelHeight = reader.ReadInt32();

@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="BigEndianBinaryReader.cs" />
     <Compile Include="ColorMode.cs" />
+    <Compile Include="FileVersion.cs" />
     <Compile Include="IFileHeaderReader.cs" />
     <Compile Include="ImageResourceId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

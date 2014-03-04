@@ -15,7 +15,7 @@
         /// Gets or sets the version.
         /// </summary>
         /// <remarks>Version: always equal to 1. Do not try to read the file if the version does not match this value. (**PSB** version is 2.)</remarks>
-        public short Version { get; set; }
+        public FileVersion Version { get; set; }
 
         /// <summary>
         /// Gets or sets the reserved bytes. Must be zero.
