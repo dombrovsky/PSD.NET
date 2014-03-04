@@ -87,4 +87,16 @@ namespace Psd.Net
             return list;
         }
     }
+
+    public class LayerInformationReader
+    {
+        public void Read(Stream stream, FileVersion version)
+        {
+            var reader = new BigEndianBinaryReader(stream);
+
+            long length = version == FileVersion.Psd ? reader.ReadInt32() : reader.ReadInt64();
+
+            stream.Position += length;
+        }
+    }
 }
