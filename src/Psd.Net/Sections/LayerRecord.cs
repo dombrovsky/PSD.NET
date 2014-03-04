@@ -92,6 +92,11 @@
         public bool? IsPixelIrrelevantToAppearance { get; set; }
 
         /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// Gets the offset.
         /// </summary>
         public long Offset { get; set; }

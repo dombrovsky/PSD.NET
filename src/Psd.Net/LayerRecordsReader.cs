@@ -49,6 +49,17 @@ namespace Psd.Net
 
                 layerRecord.Length = reader.ReadInt32();
                 layerRecord.Offset = stream.Position;
+
+                // Layer mask / adjustment layer data
+                var maskLength = reader.ReadInt32();
+                stream.Position += maskLength;
+
+                // Layer blending ranges data
+                var blendingLength = reader.ReadInt32();
+                stream.Position += blendingLength;
+
+                layerRecord.Name = reader.ReadPascalString();
+
                 stream.Position = layerRecord.Offset + layerRecord.Length;
 
                 list.Add(layerRecord);

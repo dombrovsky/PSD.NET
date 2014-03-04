@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 
 namespace Psd.Net
 {
@@ -15,7 +16,9 @@ namespace Psd.Net
         public static string ReadPascalString(this BinaryReader binaryReader)
         {
             var stringLength = binaryReader.ReadByte();
-            var resultString = new string(binaryReader.ReadChars(stringLength));
+            var bytes = binaryReader.ReadBytes(stringLength);
+
+            var resultString = new string(bytes.Select(b => (char)b).ToArray());
 
             if ((stringLength % 2) != 0 || stringLength == 0)
             {
