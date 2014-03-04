@@ -53,7 +53,8 @@
     <Compile Include="Sections\ColorModeData.cs" />
     <Compile Include="Sections\FileHeader.cs" />
     <Compile Include="Sections\IDataSection.cs" />
-    <Compile Include="Sections\ImageResource.cs" />
+    <Compile Include="Sections\ImageResourceBlock.cs" />
+    <Compile Include="Sections\ImageResourcesSection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,17 +6,28 @@ namespace Psd.Net
 {
     public class ImageResourcesReader
     {
-        public List<ImageResource> Read(Stream stream)
+        public ImageResourcesSection Read(Stream stream)
         {
-            var list = new List<ImageResource>();
+            var imageResourcesSection = new ImageResourcesSection();
+            var reader = new BigEndianBinaryReader(stream);
+            imageResourcesSection.Length = reader.ReadInt32();
+            imageResourcesSection.Offset = reader.BaseStream.Position;
+            return imageResourcesSection;
+        }
+    }
+
+    public class ImageResourceBlocksReader
+    {
+        public List<ImageResourceBlock> Read(Stream stream, ImageResourcesSection imageResourcesSection)
+        {
+            var list = new List<ImageResourceBlock>();
 
             var reader = new BigEndianBinaryReader(stream);
-            var length = reader.ReadInt32();
-            var startPosition = reader.BaseStream.Position;
+            stream.Position = imageResourcesSection.Offset;
 
-            while (reader.BaseStream.Position < startPosition + length)
+            while (reader.BaseStream.Position < imageResourcesSection.Offset + imageResourcesSection.Length)
             {
-                var imageResource = new ImageResource();
+                var imageResource = new ImageResourceBlock();
 
                 imageResource.Signature = new string(reader.ReadChars(4));
                 imageResource.Id = (ImageResourceId)reader.ReadInt16();

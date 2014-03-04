@@ -3,7 +3,7 @@
     /// <summary>
     /// Image resources are used to store non-pixel data associated with images, such as pen tool paths.
     /// </summary>
-    public class ImageResource : IDataSection
+    public class ImageResourceBlock : IDataSection
     {
         /// <summary>
         /// Gets or sets the signature. Should be '8BIM'.
