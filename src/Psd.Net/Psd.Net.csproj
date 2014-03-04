@@ -55,6 +55,8 @@
     <Compile Include="Sections\IDataSection.cs" />
     <Compile Include="Sections\ImageResourceBlock.cs" />
     <Compile Include="Sections\ImageResourcesSection.cs" />
+    <Compile Include="Sections\LayerAndMaskInformationSection.cs" />
+    <Compile Include="Sections\LayersInformationSection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

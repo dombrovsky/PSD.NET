@@ -1,21 +1,32 @@
 ﻿using System;
 using System.IO;
+using Psd.Net.Sections;
 
 namespace Psd.Net
 {
-    public class LayerInformationReader
+    public class LayerAndMaskInformationReader
     {
-        public void Read(Stream stream, FileVersion version)
+        public LayerAndMaskInformationSection Read(Stream stream, FileVersion version)
         {
+            var layerAndMaskInformationSection = new LayerAndMaskInformationSection();
             var reader = new BigEndianBinaryReader(stream);
 
-            long length = version == FileVersion.Psd ? reader.ReadInt32() : reader.ReadInt64();
-            var startPosition = stream.Position;
+            layerAndMaskInformationSection.Length = version == FileVersion.Psd ? reader.ReadInt32() : reader.ReadInt64();
+            layerAndMaskInformationSection.Offset = stream.Position;
 
-            long layersInfoLength = version == FileVersion.Psd ? reader.ReadInt32() : reader.ReadInt64();
-            short layersCount = Math.Abs(reader.ReadInt16());
+            layerAndMaskInformationSection.LayersInformation = new LayersInformationSection();
+            layerAndMaskInformationSection.LayersInformation.Length = version == FileVersion.Psd ? reader.ReadInt32() : reader.ReadInt64();
+            layerAndMaskInformationSection.LayersInformation.LayerCount = reader.ReadInt16();
+            if (layerAndMaskInformationSection.LayersInformation.LayerCount < 0)
+            {
+                layerAndMaskInformationSection.LayersInformation.LayerCount *= -1;
+                layerAndMaskInformationSection.LayersInformation.IsFirstAlphaChannel = true;
+            }
 
-            stream.Position = startPosition + length;
+            layerAndMaskInformationSection.LayersInformation.Offset = stream.Position;
+            stream.Position = layerAndMaskInformationSection.Offset + layerAndMaskInformationSection.Length;
+
+            return layerAndMaskInformationSection;
         }
     }
 }
