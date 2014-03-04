@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="BigEndianBinaryReader.cs" />
     <Compile Include="BinaryReaderExtensions.cs" />
+    <Compile Include="ByteExtensions.cs" />
     <Compile Include="ColorMode.cs" />
     <Compile Include="ColorModeDataReader.cs" />
     <Compile Include="CompressionMethod.cs" />
@@ -47,9 +48,11 @@
     <Compile Include="ImageResourceId.cs" />
     <Compile Include="ImageResourcesReader.cs" />
     <Compile Include="LayerInformationReader.cs" />
+    <Compile Include="LayerRecordsReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PsdException.cs" />
     <Compile Include="PsdFileFormatException.cs" />
+    <Compile Include="Sections\ChannelInformation.cs" />
     <Compile Include="Sections\ColorModeData.cs" />
     <Compile Include="Sections\FileHeader.cs" />
     <Compile Include="Sections\GlobalLayerMaskInformation.cs" />
@@ -57,6 +60,7 @@
     <Compile Include="Sections\ImageResourceBlock.cs" />
     <Compile Include="Sections\ImageResourcesSection.cs" />
     <Compile Include="Sections\LayerAndMaskInformationSection.cs" />
+    <Compile Include="Sections\LayerRecord.cs" />
     <Compile Include="Sections\LayersInformation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

@@ -2,6 +2,9 @@
 
 namespace Psd.Net
 {
+    /// <summary>
+    /// <see cref="BinaryReader"/> extensions.
+    /// </summary>
     public static class BinaryReaderExtensions
     {
         /// <summary>
