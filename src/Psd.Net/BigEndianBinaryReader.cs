@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace Psd.Net
 {
@@ -81,6 +82,19 @@ namespace Psd.Net
         public override ulong ReadUInt64()
         {
             return BitConverter.ToUInt64(ReadReverse(8), 0);
+        }
+
+        /// <summary>
+        /// Reads a string from the current stream. The string is prefixed with the length, encoded as an integer seven bits at a time.
+        /// </summary>
+        /// <returns>
+        /// The string being read.
+        /// </returns>
+        public override string ReadString()
+        {
+            var charLength = ReadInt32();
+            var bytes = ReadBytes(charLength * 2);
+            return Encoding.BigEndianUnicode.GetString(bytes, 0, bytes.Length);
         }
 
         private byte[] ReadReverse(int count)
