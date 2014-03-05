@@ -12,6 +12,9 @@ namespace Psd.Net
             var reader = new BigEndianBinaryReader(stream);
             imageResourcesSection.Length = reader.ReadInt32();
             imageResourcesSection.Offset = reader.BaseStream.Position;
+
+            stream.Position += imageResourcesSection.Length;
+
             return imageResourcesSection;
         }
     }

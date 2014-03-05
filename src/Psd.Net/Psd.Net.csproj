@@ -45,7 +45,7 @@
     <Compile Include="CompressionMethod.cs" />
     <Compile Include="FileHeaderReader.cs" />
     <Compile Include="FileVersion.cs" />
-    <Compile Include="ImageDataReader.cs" />
+    <Compile Include="ImageDataSectionReader.cs" />
     <Compile Include="ImageResourceId.cs" />
     <Compile Include="ImageResourcesReader.cs" />
     <Compile Include="LayerInformationReader.cs" />
@@ -60,6 +60,7 @@
     <Compile Include="Sections\FileHeader.cs" />
     <Compile Include="Sections\GlobalLayerMaskInformation.cs" />
     <Compile Include="Sections\IDataSection.cs" />
+    <Compile Include="Sections\ImageDataSection.cs" />
     <Compile Include="Sections\ImageResourceBlock.cs" />
     <Compile Include="Sections\ImageResourcesSection.cs" />
     <Compile Include="Sections\LayerAndMaskInformationSection.cs" />
