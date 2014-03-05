@@ -43,6 +43,7 @@
     <Compile Include="ColorMode.cs" />
     <Compile Include="ColorModeDataReader.cs" />
     <Compile Include="CompressionMethod.cs" />
+    <Compile Include="Compression\RleDecompressor.cs" />
     <Compile Include="FileHeaderReader.cs" />
     <Compile Include="FileVersion.cs" />
     <Compile Include="ImageDataSectionReader.cs" />
