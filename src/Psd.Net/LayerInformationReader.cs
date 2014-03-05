@@ -46,6 +46,15 @@ namespace Psd.Net
                 section.GlobalLayerMaskInformation.Offset = stream.Position;
             }
 
+            // AdditionalLayerInformation
+            stream.Position += globalLayerMaskInformationLength;
+            if (stream.Position != section.Offset + section.Length) // if we did not reach the end of section, than there is additional data.
+            {
+                section.AdditionalLayerInformation = new AdditionalLayerInformation();
+                section.AdditionalLayerInformation.Offset = stream.Position;
+                section.AdditionalLayerInformation.Length = (section.Offset + section.Length) - section.AdditionalLayerInformation.Offset;
+            }
+
             stream.Position = section.Offset + section.Length;
 
             return section;

@@ -24,5 +24,10 @@
         /// Gets or sets the global layer mask information.
         /// </summary>
         public GlobalLayerMaskInformation GlobalLayerMaskInformation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the additional layer information.
+        /// </summary>
+        public AdditionalLayerInformation AdditionalLayerInformation { get; set; }
     }
 }
