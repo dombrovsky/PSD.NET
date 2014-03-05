@@ -105,5 +105,10 @@
         /// Gets the length.
         /// </summary>
         public long Length { get; set; }
+
+        /// <summary>
+        /// Gets or sets the additional layer information.
+        /// </summary>
+        public AdditionalLayerInformation AdditionalLayerInformation { get; set; }
     }
 }

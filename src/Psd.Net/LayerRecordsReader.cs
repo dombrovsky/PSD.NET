@@ -60,6 +60,12 @@ namespace Psd.Net
 
                 layerRecord.Name = reader.ReadPascalString();
 
+                reader.ReadByte(); //???
+
+                layerRecord.AdditionalLayerInformation = new AdditionalLayerInformation();
+                layerRecord.AdditionalLayerInformation.Offset = stream.Position;
+                layerRecord.AdditionalLayerInformation.Length = (layerRecord.Offset + layerRecord.Length) - layerRecord.AdditionalLayerInformation.Offset;
+
                 stream.Position = layerRecord.Offset + layerRecord.Length;
 
                 list.Add(layerRecord);
